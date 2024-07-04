@@ -17,6 +17,7 @@
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'support/response_helper'
+require 'support/models_helpers'
 require 'active_support'
 require 'active_support/testing/time_helpers'
 
@@ -37,6 +38,9 @@ RSpec.configure do |config|
 
   # add method to parse body for all request tests
   config.include Response::JsonHelpers, type: :request
+
+  # add method to helper with build models
+  config.include ModelsHelpers
 
   config.include ActiveSupport::Testing::TimeHelpers
 

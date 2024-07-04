@@ -32,6 +32,10 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
+# show queries in log
+# ActiveRecord::Base.logger = Logger.new($stdout)
+
 RSpec.configure do |config|
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
