@@ -3,13 +3,14 @@
 module Domains
   module Contacts
     extend Monads::ModulesResponse
+    include Repositories
 
     module_function
 
     def create_contact(user:, **params)
       contact = Domains::Models::Contact.new(user: user, **params)
       if contact.valid?
-        contact = Repo.save!(contact)
+        contact = ContactRepo.save!(contact)
         return response(success: true, value: contact)
       end
 
