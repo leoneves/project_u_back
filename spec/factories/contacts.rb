@@ -2,10 +2,15 @@
 
 FactoryBot.define do
   factory :contact do
-    name { 'MyString' }
-    cpf { 'MyString' }
+    name { "My name #{('a'..'z').to_a[rand(26)]}" }
+    cpf { Random.new_seed }
     phone { 'MyString' }
-    address { nil }
     user { nil }
+
+    trait :with_address do
+      after :build do |instance|
+        instance.address = create(:address, contact: instance)
+      end
+    end
   end
 end

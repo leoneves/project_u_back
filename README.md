@@ -61,3 +61,32 @@ POST /signup: /api/v1/users/signup
 POST /login: /api/v1/users/login
 
 ---
+
+GET /api/v1/contacts?user_id={user_id}&page={page_number}&name={name}&cpf={cpf}  
+possible responses:
+
+200 - ok:
+```json
+[
+    {
+        "id": "ab511532-6a30-4880-bb0f-46da8f292707",
+        "name": "Leo",
+        "cpf": "08842231190",
+        "phone": "21999999999",
+        "user_id": "792be5a7-21d6-4f84-b1e9-a5bd707ff0db",
+        "address": {
+            "id": "5b70e150-2749-4625-bb2a-6a654c811385",
+            "cep": "58470-090",
+            "latitude": "12.0",
+            "longitude": "54.0",
+            "address": "Rua caxias",
+            "address_complement": null,
+            "contact_id": "ab511532-6a30-4880-bb0f-46da8f292707"
+        }
+    }
+]
+```
+
+204 - no content
+
+---

@@ -3,6 +3,7 @@
 module Domains
   module Models
     class Contact
+      include ActiveModel::Serialization
       include ActiveModel::Validations
       include Utils::AttributesUtils
 

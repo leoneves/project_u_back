@@ -8,6 +8,10 @@ module Repositories
       as_domain(Contact.eager_load(:user).where(id: id).first)
     end
 
+    def all(filters, page)
+      as_domains(Contact.filter(filters).page(page).order(name: :asc))
+    end
+
     def save!(contact)
       contact.address = Address.new(contact.address.attributes)
       model_contact = Contact.create!(contact.attributes)
@@ -21,6 +25,10 @@ module Repositories
       )
     end
 
-    private_methods %i[as_domain]
+    def as_domains(records)
+      records.map { |record| as_domain(record) }
+    end
+
+    private_methods %i[as_domain as_domains]
   end
 end

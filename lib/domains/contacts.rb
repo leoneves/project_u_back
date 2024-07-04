@@ -16,5 +16,9 @@ module Domains
 
       response(success: false, value: contact)
     end
+
+    def find_all(filters, page)
+      ContactRepo.all(filters, page)
+    end
   end
 end

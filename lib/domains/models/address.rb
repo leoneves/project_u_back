@@ -3,6 +3,7 @@
 module Domains
   module Models
     class Address
+      include ActiveModel::Serialization
       include ActiveModel::Validations
       include Utils::AttributesUtils
 
