@@ -17,6 +17,7 @@ module Domains
       validates :user, presence: true
       validates :address, presence: true
       validate :cpf_already_exist
+      validates_cpf_format_of :cpf
 
       def initialize(user:, **params)
         @id = params[:id]

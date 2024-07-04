@@ -70,7 +70,7 @@ RSpec.describe 'Api::V1::Contacts', type: :request do
       let(:address) { Domains::Models::Address.new(**hash_to_sym(build(:address).attributes)) }
       let(:params) do
         {
-          name: 'My Name', cpf: '12712345890', phone: '21994587125',
+          name: 'My Name', cpf: '52267152002', phone: '21994587125',
           address: address, address_id: address.id
         }
       end
