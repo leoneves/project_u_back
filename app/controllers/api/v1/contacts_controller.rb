@@ -14,6 +14,24 @@ module Api
         contacts = Contacts.find_all(filters, page)
         render json: contacts, status: :ok if contacts.any?
       end
+
+      def create
+        response = Domains::Contacts.create_contact(user: current_user, **permitted_params(params).merge(user_id: current_user.id))
+        return render json: response.value, status: :created if response.success?
+
+        return render json: response.value.errors, status: :unprocessable_content unless response.value.errors.empty?
+
+        render json: response.value.address.errors, status: :unprocessable_content
+      end
+
+      private
+
+      def permitted_params(params)
+        params.permit(
+          :id, :name, :cpf, :phone, :user_id, :user,
+          { address: %i[id cep latitude longitude address address_complement contact_id contact] }
+        ).to_h.symbolize_keys
+      end
     end
   end
 end

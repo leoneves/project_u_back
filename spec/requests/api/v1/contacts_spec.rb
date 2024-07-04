@@ -53,4 +53,29 @@ RSpec.describe 'Api::V1::Contacts', type: :request do
       end
     end
   end
+
+  describe 'POST /create' do
+    subject do
+      post api_v1_contacts_path, params: params, as: :json
+      response
+    end
+
+    context 'without needed params' do
+      let(:params) { { name: 'john' } }
+
+      it { is_expected.to have_http_status(:unprocessable_content) }
+    end
+
+    context 'with all valid params' do
+      let(:address) { Domains::Models::Address.new(**hash_to_sym(build(:address).attributes)) }
+      let(:params) do
+        {
+          name: 'My Name', cpf: '12712345890', phone: '21994587125',
+          address: address, address_id: address.id
+        }
+      end
+
+      it { is_expected.to have_http_status(:created) }
+    end
+  end
 end

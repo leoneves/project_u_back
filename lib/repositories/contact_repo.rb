@@ -12,6 +12,10 @@ module Repositories
       as_domains(Contact.filter(filters).page(page).order(name: :asc))
     end
 
+    def cpf_already_exist?(cpf)
+      Contact.exists?(cpf: cpf)
+    end
+
     def save!(contact)
       contact.address = Address.new(contact.address.attributes)
       model_contact = Contact.create!(contact.attributes)
