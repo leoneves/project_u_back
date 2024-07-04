@@ -322,4 +322,8 @@ Devise.setup do |config|
     ]
     jwt.expiration_time = 10.minutes.to_i
   end
+
+  config.warden do |warden|
+    warden.scope_defaults(:user, store: false) # <---- This will use the config even if it's not passed to the method opts
+  end
 end

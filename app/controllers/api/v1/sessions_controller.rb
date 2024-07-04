@@ -3,7 +3,13 @@
 module Api
   module V1
     class SessionsController < Devise::SessionsController
+      include RackSessionFixController
+
       respond_to :json
+
+      def auth_options
+        super.merge({ store: false })
+      end
 
       private
 

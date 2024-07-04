@@ -51,6 +51,7 @@ Metrics/BlockLength:
   AllowedMethods: ['describe', 'context', 'define']
   Exclude:
     - spec/factories/**/**/*
+    - config/initializers/**/*
 
 Metrics/AbcSize:
   Max: 23

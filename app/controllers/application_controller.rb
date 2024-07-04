@@ -3,6 +3,10 @@
 class ApplicationController < ActionController::API
   attr_writer :resource
 
+  def check_user_authentication
+    head :unauthorized unless user_signed_in?
+  end
+
   def user_by_token
     token = request.headers[:Authorization].split
     Warden::JWTAuth::UserDecoder.new.call(token[1], :user, nil)

@@ -5,6 +5,8 @@ module Api
     class ContactsController < ApplicationController
       include Domains
 
+      before_action :check_user_authentication
+
       def index
         page = (params[:page] || 1).to_i
         filters = params.slice(:user_id, :name, :cpf)

@@ -3,6 +3,7 @@
 module Api
   module V1
     class RegistrationsController < ApplicationController
+      include RackSessionFixController
       respond_to :json
 
       def create
@@ -13,7 +14,7 @@ module Api
       end
 
       def build_resource(hash = {})
-        self.resource = resource_class.new_with_session(hash, session)
+        self.resource = resource_class.new(hash)
       end
 
       def permitted_params

@@ -3,6 +3,7 @@
 module Api
   module V1
     class PasswordsController < Devise::PasswordsController
+      include RackSessionFixController
       respond_to :json
 
       # POST /password

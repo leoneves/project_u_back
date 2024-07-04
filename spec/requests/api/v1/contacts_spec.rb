@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Contacts', type: :request do
+  login_user
+
   describe 'GET /index' do
     subject do
       get api_v1_contacts_path, params: params
