@@ -24,6 +24,22 @@ module Api
         render json: response.value.address.errors, status: :unprocessable_content
       end
 
+      def update
+        response = Contacts.update_contact(contact_id: params[:id], **permitted_params(params))
+        return render json: response.value, status: :ok if response.success?
+
+        return render json: response.value.errors, status: :unprocessable_content unless response.value.errors.empty?
+
+        render json: response.value.address.errors, status: :unprocessable_content
+      end
+
+      def destroy
+        response = Contacts.destroy(params[:id])
+        return head :ok if response.success?
+
+        head :server_error
+      end
+
       private
 
       def permitted_params(params)

@@ -17,15 +17,21 @@ module Domains
       validates :contact_id, presence: true
 
       def initialize(contact: nil, **params)
-        @id = params[:id]
-        @contact_id = params[:contact_id]
+        assign_attributes(contact: contact, **params)
+      end
+
+      private
+
+      def assign_attributes(contact: nil, **params)
+        @id ||= params[:id]
+        @contact_id ||= params[:contact_id]
         @cep = params[:cep]
         @latitude = params[:latitude]
         @longitude = params[:longitude]
         @address = params[:address]
         @uf = params[:uf]
         @address_complement = params[:address_complement]
-        @contact = contact
+        @contact = contact if contact.present?
       end
     end
   end

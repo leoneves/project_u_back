@@ -16,10 +16,24 @@ module Repositories
       Contact.exists?(cpf: cpf)
     end
 
+    def destroy(contact_id)
+      Contact.destroy(contact_id)
+    end
+
     def save!(contact)
       contact.address = Address.new(contact.address.attributes)
       model_contact = Contact.create!(contact.attributes)
       as_domain(model_contact)
+    end
+
+    def update(contact)
+      ActiveRecord::Base.transaction do
+        Contact.update(contact.id, contact.attributes_without_assoc)
+        Address.update(contact.address.id, contact.address.attributes)
+        true
+      rescue ActiveRecord::RecordInvalid
+        raise ActiveRecord::Rollback
+      end
     end
 
     def as_domain(record)
