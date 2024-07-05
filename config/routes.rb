@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
       get 'addresses/search', controller: 'addresses', action: 'search_addresses'
       get 'addresses/position', controller: 'addresses', action: 'find_location_on_map'
+      delete 'users/:id', controller: 'users', action: 'destroy'
     end
   end
 end

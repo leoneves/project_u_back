@@ -3,7 +3,7 @@
 class Contact < ApplicationRecord
   include Filterable
 
-  has_one :address, dependent: :restrict_with_error
+  has_one :address, dependent: :destroy
   belongs_to :user
 
   scope :user_id, ->(user_id) { where(user_id: user_id) }
