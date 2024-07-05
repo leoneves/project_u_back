@@ -80,6 +80,7 @@ possible responses:
             "latitude": "12.0",
             "longitude": "54.0",
             "address": "Rua caxias",
+            "uf": "RJ",
             "address_complement": null,
             "contact_id": "ab511532-6a30-4880-bb0f-46da8f292707"
         }

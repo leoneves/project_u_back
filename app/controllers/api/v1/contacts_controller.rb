@@ -29,7 +29,7 @@ module Api
       def permitted_params(params)
         params.permit(
           :id, :name, :cpf, :phone, :user_id, :user,
-          { address: %i[id cep latitude longitude address address_complement contact_id contact] }
+          { address: %i[id cep latitude longitude address uf address_complement contact_id contact] }
         ).to_h.symbolize_keys
       end
     end

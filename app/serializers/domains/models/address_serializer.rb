@@ -3,7 +3,7 @@
 module Domains
   module Models
     class AddressSerializer < ActiveModel::Serializer
-      attributes :id, :cep, :latitude, :longitude, :address, :address_complement, :contact_id
+      attributes :id, :cep, :latitude, :longitude, :address, :uf, :address_complement, :contact_id
 
       def latitude
         object.latitude.to_f

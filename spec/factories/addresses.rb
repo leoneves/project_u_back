@@ -6,6 +6,7 @@ FactoryBot.define do
     latitude { '9.99' }
     longitude { '9.99' }
     address { 'MyText' }
+    uf { 'RJ' }
     address_complement { 'MyText' }
     contact { nil }
   end
