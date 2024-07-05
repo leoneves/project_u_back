@@ -10,6 +10,10 @@ These are the features for the project:
   - search addresses as a helper while subscribes contacts  
   - delete his account
 
+* To run this project correctly you need to load two environment variables: 
+  * GOOGLE_API_KEY = your google api key 
+  * JWT_SECRET_KEY = a key to create jwt tokens
+
 ### How to run in development
 
 First, up the dependencies services:
@@ -23,7 +27,7 @@ Inside project directory do:
 - bundle install
 - RAILS_ENV=development bundle e rails db:create
 - RAILS_ENV=development bundle e rails db:migrate
-- RAILS_ENV=development bundle e rails s -p 8000
+- GOOGLE_API_KEY=change_it JWT_SECRET_KEY=change_it RAILS_ENV=development bundle e rails s -p 8000
 
 ### How to run tests
 
