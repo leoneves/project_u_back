@@ -13,6 +13,26 @@ module Api
         find_by_address(params)
       end
 
+      def find_location_on_map
+        address = params.require(:address)
+        locations = Addresses.search_geographic_coordinates(address)
+
+        response = locations.map do |location|
+          {
+            complete_address: location[:formatted_address],
+            latitude: location.dig(:geometry, :location, :lat),
+            longitude: location.dig(:geometry, :location, :lng)
+          }
+        end
+        return render json: response, status: :ok unless locations.empty?
+
+        head :not_found
+      rescue ActionController::ParameterMissing => e
+        render json: { message: e.message }, status: :bad_request
+      end
+
+      private
+
       def find_by_cep(params)
         addresses = Addresses.search_by_cep(params[:cep])
         return render json: addresses, status: :ok unless addresses.nil?

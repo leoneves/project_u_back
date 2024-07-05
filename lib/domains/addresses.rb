@@ -15,6 +15,8 @@ module Domains
       Connectors::ViaCepConnector.new.search_by_cep(cep)
     end
 
-    def search_geographic_coordinates; end
+    def search_geographic_coordinates(address)
+      Connectors::GoogleMapsConnector.new.search_geo_location(address)
+    end
   end
 end

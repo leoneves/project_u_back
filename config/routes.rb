@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :contacts
 
       get 'addresses/search', controller: 'addresses', action: 'search_addresses'
+      get 'addresses/position', controller: 'addresses', action: 'find_location_on_map'
     end
   end
 end
