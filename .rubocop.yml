@@ -47,6 +47,9 @@ Layout/LineLength:
 Metrics/MethodLength:
   Max: 20
   
+Naming/MethodParameterName:
+  MinNameLength: 2
+  
 Metrics/BlockLength:
   AllowedMethods: ['describe', 'context', 'define']
   Exclude:
