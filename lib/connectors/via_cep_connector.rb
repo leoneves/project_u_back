@@ -14,5 +14,11 @@ module Connectors
       response = @conn.get(uri)
       JSON.parse(response.body, symbolize_names: true)
     end
+
+    def search_by_cep(cep)
+      uri = URI::Parser.new.escape("ws/#{cep}/json")
+      response = @conn.get(uri)
+      JSON.parse(response.body, symbolize_names: true) if response.status == 200
+    end
   end
 end

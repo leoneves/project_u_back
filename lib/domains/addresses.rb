@@ -11,6 +11,10 @@ module Domains
       Connectors::ViaCepConnector.new.search_by_address(uf, city, street)
     end
 
+    def search_by_cep(cep)
+      Connectors::ViaCepConnector.new.search_by_cep(cep)
+    end
+
     def search_geographic_coordinates; end
   end
 end
