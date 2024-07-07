@@ -75,7 +75,7 @@ possible responses:
 ```
 ---
 
-Login
+Login  
 POST /login: /api/v1/users/login  
 Body:  
 ```json
@@ -146,8 +146,8 @@ possible responses:
 
 Get All Contacts  
 GET /api/v1/contacts?user_id={user_id}&page={page_number}&name={name}&cpf={cpf}  
-header: { Authorization:  Bearer token_Bearer } 
-possible responses:
+header: { Authorization:  Bearer token_Bearer }  
+possible responses:  
 
 200 - OK:
 ```json
@@ -178,7 +178,7 @@ possible responses:
 
 Create Contact  
 POST /api/v1/contacts  
-header: { Authorization:  Bearer token_Bearer }
+header: { Authorization:  Bearer token_Bearer }  
 Body:  
 ```json
   {
@@ -263,7 +263,7 @@ possible responses:
 
 Get google maps position  
 GET /api/v1/addresses/position?address={complete address with space or not}  
-example of adress: rua lucio de mendonca 15, rio de janeiro, rj - brasil  
+example of adress: rua mariz e barros 155, rio de janeiro, rj - brasil  
 header: { Authorization:  Bearer token_Bearer }  
 possible responses:  
 
