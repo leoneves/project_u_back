@@ -8,7 +8,7 @@ module Domains
       include Utils::AttributesUtils
 
       attr_accessor :id, :name, :cpf, :phone, :user_id, :user
-      attr_reader :address
+      attr_reader :address, :action
 
       validates :name, presence: true
       validates :cpf, presence: true
@@ -27,6 +27,7 @@ module Domains
       def update_attrs(**params)
         @action = :update_attrs
         assign_attributes(user: nil, **params)
+        @address = nil if @address.attributes.empty?
       end
 
       def address=(address)

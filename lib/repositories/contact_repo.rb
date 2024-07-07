@@ -29,7 +29,7 @@ module Repositories
     def update(contact)
       ActiveRecord::Base.transaction do
         Contact.update(contact.id, contact.attributes_without_assoc)
-        Address.update(contact.address.id, contact.address.attributes)
+        Address.update(contact.address.id, contact.address.attributes) if contact.address.present?
         true
       rescue ActiveRecord::RecordInvalid
         raise ActiveRecord::Rollback

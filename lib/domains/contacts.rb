@@ -19,11 +19,10 @@ module Domains
 
     def update_contact(contact_id:, **params)
       contact = ContactRepo.find(contact_id)
-      contact.update_attrs(**params.merge(address: { id: contact.address.id, **params[:address] }))
-      if contact.valid?
-        succeed = ContactRepo.update(contact)
-        return response(success: true, value: contact) if succeed
-      end
+      address_changeset = params[:address].present? ? { id: contact.address.id, **params[:address] } : {}
+      contact.update_attrs(**params.merge(address: address_changeset))
+      succeed = ContactRepo.update(contact)
+      return response(success: true, value: contact) if succeed
 
       response(success: false)
     end
