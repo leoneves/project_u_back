@@ -50,7 +50,9 @@ Then inside backend project directory do:
 
 ### Api
 
-POST /signup: /api/v1/users/signup
+Registers User  
+POST /signup: /api/v1/users/signup  
+Body:  
 ```json
 {
   "name": "user 1",
@@ -59,10 +61,23 @@ POST /signup: /api/v1/users/signup
   "password_confirmation": "123456"
 }
 ```
+possible responses:  
 
+200 - OK
+```json
+{
+  "id": "3f0cae27-359a-4ee9-b736-eced9141c711",
+  "name": "user 1",
+  "email": "user1@gmail.com",
+  "created_at": "2024-07-07T20:39:48.123Z",
+  "updated_at": "2024-07-07T20:39:48.123Z"
+}
+```
 ---
 
-POST /login: /api/v1/users/login
+Login
+POST /login: /api/v1/users/login  
+Body:  
 ```json
 {
     "user": {
@@ -71,14 +86,70 @@ POST /login: /api/v1/users/login
     }
 }
 ```
+possible responses:  
+
+200 - OK  
+headers { authorization: ' Bearer token' }
+
+401 - Unauthorized
+```json
+{
+    "error": "Invalid Email or password."
+}
+```
 
 ---
 
+Requests for reset password  
+POST /api/v1/users/password  
+Body:  
+```json
+{
+    "user": {
+        "email": "user1@gmail.com"
+    }
+}
+```
+
+possible responses:
+
+200 - OK
+```json
+{
+    "message": "Request successful"
+}
+```
+
+404 - Not Found
+
+---
+
+Update Password  
+PUT api/v1/users/password  
+Body:  
+```json
+{
+    "user": {
+        "reset_password_token": "token_that_has_been_sent_by_email",
+        "password": "new-password",
+        "password_confirmation": "new-password"
+      }
+}
+```
+possible responses:  
+
+200 - OK
+
+404 - Not Found
+
+---
+
+Get All Contacts  
 GET /api/v1/contacts?user_id={user_id}&page={page_number}&name={name}&cpf={cpf}  
 header: { Authorization:  Bearer token_Bearer } 
 possible responses:
 
-200 - ok:
+200 - OK:
 ```json
 [
     {
@@ -105,8 +176,25 @@ possible responses:
 
 ---
 
+Create Contact  
 POST /api/v1/contacts  
-header: { Authorization:  Bearer token_Bearer }  
+header: { Authorization:  Bearer token_Bearer }
+Body:  
+```json
+  {
+  "name": "john",
+  "cpf": "24113470065",
+  "phone": "21994587125",
+  "address": {
+    "cep": "20202020",
+    "latitude": -22.9156933,
+    "longitude": -43.2243139,
+    "address": "rua lucio",
+    "uf": "rj"
+  }
+}
+```
+
 possible responses:
 
 201 - Created
@@ -134,11 +222,12 @@ possible responses:
 
 ---
 
+Get Possible addresses for auto-complete  
 GET /api/v1/addresses/search?uf={state}&city={city}&street={street_name}  
 header: { Authorization:  Bearer token_Bearer }  
 possible responses:
 
-200 - ok
+200 - OK
 ```json
 [
     {
@@ -172,12 +261,13 @@ possible responses:
 
 ---
 
+Get google maps position  
 GET /api/v1/addresses/position?address={complete address with space or not}  
 example of adress: rua lucio de mendonca 15, rio de janeiro, rj - brasil  
 header: { Authorization:  Bearer token_Bearer }  
 possible responses:  
 
-200 - ok
+200 - OK
 ```json
 [
     {
@@ -190,6 +280,7 @@ possible responses:
 
 ---
 
+Delete user  
 DELETE /api/v1/users/{user_id}  
 header: { Authorization:  Bearer token_Bearer }  
 possible responses:  
@@ -198,16 +289,27 @@ possible responses:
 
 ---
 
+Update contacts  
 PATCH /api/v1/contacts/{contact_id}  
 header: { Authorization:  Bearer token_Bearer }  
 possible responses:  
 
-200 - ok / returns only the data that was changed  
+200 - OK / returns only the data that was changed  
 
 ```json
 {
     "phone": "2199303030"
 }
 ```
+
+---
+Delete Contact  
+DELETE /api/v1/contacts/{contact_id}  
+header: { Authorization:  Bearer token_Bearer }    
+possible responses:  
+
+200 - OK
+
+404 - Not Found
 
 
