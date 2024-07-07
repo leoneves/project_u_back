@@ -19,6 +19,8 @@ module Domains
 
     def update_contact(contact_id:, **params)
       contact = ContactRepo.find(contact_id)
+      return response(success: false, value: Domains::Models::Contact.new(user: nil).can_not_found_error) if contact.nil?
+
       address_changeset = params[:address].present? ? { id: contact.address.id, **params[:address] } : {}
       contact.update_attrs(**params.merge(address: address_changeset))
       succeed = ContactRepo.update(contact)

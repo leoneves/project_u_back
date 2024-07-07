@@ -37,6 +37,8 @@ module Repositories
     end
 
     def as_domain(record)
+      return if record.nil?
+
       address = Domains::Models::Address.new(**record.address.attributes.symbolize_keys)
       Domains::Models::Contact.new(
         user: record.user, address: address, **record.attributes.symbolize_keys

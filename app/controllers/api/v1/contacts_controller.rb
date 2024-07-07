@@ -25,6 +25,8 @@ module Api
       end
 
       def update
+        return head :unprocessable_content if permitted_params(params).size < 2
+
         response = Contacts.update_contact(contact_id: params[:id], **permitted_params(params))
         return render json: response.value, status: :ok if response.success?
 

@@ -43,6 +43,11 @@ module Domains
         errors.add(:cpf, 'This cpf is already in use in our base')
       end
 
+      def can_not_found_error
+        errors.add(:id, 'Can not found a contact with this id')
+        self
+      end
+
       private
 
       def assign_attributes(user:, **params)
