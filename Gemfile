@@ -25,6 +25,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener', group: :development
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
 end
