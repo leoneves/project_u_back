@@ -308,7 +308,7 @@ DELETE /api/v1/contacts/{contact_id}
 header: { Authorization:  Bearer token_Bearer }    
 possible responses:  
 
-200 - OK
+204 - No Content
 
 404 - Not Found
 
