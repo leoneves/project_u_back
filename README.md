@@ -63,10 +63,19 @@ POST /signup: /api/v1/users/signup
 ---
 
 POST /login: /api/v1/users/login
+```json
+{
+    "user": {
+        "email": "user1@gmail.com",
+        "password": "123456"
+    }
+}
+```
 
 ---
 
 GET /api/v1/contacts?user_id={user_id}&page={page_number}&name={name}&cpf={cpf}  
+header: { Authorization:  Bearer token_Bearer } 
 possible responses:
 
 200 - ok:
@@ -95,3 +104,110 @@ possible responses:
 204 - no content
 
 ---
+
+POST /api/v1/contacts  
+header: { Authorization:  Bearer token_Bearer }  
+possible responses:
+
+201 - Created
+```json
+{
+    "name": "john",
+    "cpf": "24113470065",
+    "phone": "21994587125",
+    "address": {
+        "cep": "20202020",
+        "latitude": -22.9156933,
+        "longitude": -43.2243139,
+        "address": "rua lucio",
+        "uf": "rj"
+    }
+}
+```
+
+422 - Unprocessable Content
+```json
+  {
+    "filed_name": [ "message1", "message2" ]
+  }
+```
+
+---
+
+GET /api/v1/addresses/search?uf={state}&city={city}&street={street_name}  
+header: { Authorization:  Bearer token_Bearer }  
+possible responses:
+
+200 - ok
+```json
+[
+    {
+        "cep": "21625-290",
+        "logradouro": "Rua Lúcio de Gouveia",
+        "complemento": "",
+        "unidade": "",
+        "bairro": "Parque Anchieta",
+        "localidade": "Rio de Janeiro",
+        "uf": "RJ",
+        "ibge": "3304557",
+        "gia": "",
+        "ddd": "21",
+        "siafi": "6001"
+    },
+    {
+        "cep": "21235-535",
+        "logradouro": "Rua Lúcio de Araújo",
+        "complemento": "",
+        "unidade": "",
+        "bairro": "Irajá",
+        "localidade": "Rio de Janeiro",
+        "uf": "RJ",
+        "ibge": "3304557",
+        "gia": "",
+        "ddd": "21",
+        "siafi": "6001"
+    }
+]
+```
+
+---
+
+GET /api/v1/addresses/position?address={complete address with space or not}  
+example of adress: rua lucio de mendonca 15, rio de janeiro, rj - brasil  
+header: { Authorization:  Bearer token_Bearer }  
+possible responses:  
+
+200 - ok
+```json
+[
+    {
+        "complete_address": "R. Lúcio de Mendonça, 15 - Maracanã, Rio de Janeiro - RJ, 20270-040, Brasil",
+        "latitude": -22.9165171,
+        "longitude": -43.22333440000001
+    }
+]
+```
+
+---
+
+DELETE /api/v1/users/{user_id}  
+header: { Authorization:  Bearer token_Bearer }  
+possible responses:  
+
+204 - No Content
+
+---
+
+PATCH /api/v1/contacts/{contact_id}  
+header: { Authorization:  Bearer token_Bearer }  
+possible responses:  
+
+200 - ok / returns only the data that was changed  
+
+```json
+{
+    "phone": "2199303030"
+}
+```
+
+
