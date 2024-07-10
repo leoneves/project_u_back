@@ -23,10 +23,11 @@ module Domains
 
       address_changeset = params[:address].present? ? { id: contact.address.id, **params[:address] } : {}
       contact.update_attrs(**params.merge(address: address_changeset))
-      succeed = ContactRepo.update(contact)
+      contact.ignore_validations_for = contact.attributes_not_included_in(params)
+      succeed = ContactRepo.update(contact) if contact.valid?
       return response(success: true, value: contact) if succeed
 
-      response(success: false)
+      response(success: false, value: contact)
     end
 
     def destroy(contact_id)

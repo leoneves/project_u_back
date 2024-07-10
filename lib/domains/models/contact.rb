@@ -9,15 +9,16 @@ module Domains
 
       attr_accessor :id, :name, :cpf, :phone, :user_id, :user
       attr_reader :address, :action
+      attr_writer :ignore_validations_for
 
-      validates :name, presence: true
-      validates :cpf, presence: true
-      validates :phone, presence: true
-      validates :user_id, presence: true
-      validates :user, presence: true
-      validates :address, presence: true
-      validate :cpf_already_exist
-      validates_cpf_format_of :cpf
+      validates :name, presence: true, unless: proc { @ignore_validations_for.include?(:name) }
+      validates :cpf, presence: true, unless: proc { @ignore_validations_for.include?(:cpf) }
+      validates :phone, presence: true, unless: proc { @ignore_validations_for.include?(:phone) }
+      validates :user_id, presence: true, unless: proc { @ignore_validations_for.include?(:user_id) }
+      validates :user, presence: true, unless: proc { @ignore_validations_for.include?(:user) }
+      validates :address, presence: true, unless: proc { @ignore_validations_for.include?(:address) }
+      validate :cpf_already_exist, unless: proc { @ignore_validations_for.include?(:cpf) }
+      validates_cpf_format_of :cpf, unless: proc { @ignore_validations_for.include?(:cpf) }
 
       def initialize(user:, **params)
         @action = :create
@@ -58,6 +59,7 @@ module Domains
         @user_id ||= params[:user_id]
         @user ||= user
         self.address = params[:address]
+        @ignore_validations_for = []
       end
     end
   end
